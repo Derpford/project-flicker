@@ -26,18 +26,22 @@ class LightSensitive : Actor
 	override void Tick()
 	{
 		// Get the sector light and stick it in a handy variable every tick.
+
+		//THIS SECTION REMOVED BECAUSE ACTORS DON'T HAVE A "player" VAR.
+		/*
 		//But first, make sure we aren't a voodoo doll. I don't use them but it's better to
 		//be safe than sorry.
 		if (!player || !player.mo || player.mo != self)
 		{
 			return Super.Tick();
 		}
+		*/
 
 		lightSector = Sector.pointInSector(pos.xy).lightlevel; //Gutawer is the best.
 
 		if(lightDynTicked)
 		{
-			lightDynTicked = false
+			lightDynTicked = false;
 		}
 		else
 		{
@@ -55,20 +59,20 @@ class LightSensitive : Actor
 	{
 		// Debug actor; changes color based on current light.
 		Spawn:
-			TNT1 A 0;
-			TNT1 A 0
+			#### # 0;
+			#### # 0
 			{
 				if(GetLight()>256)
 				{
-					return state("HighLight");
+					return A_Jump(256,"HighLight");
 				}
 				else if(GetLight()>128)
 				{
-					return state("MidLight");
+					return A_Jump(256,"MidLight");
 				}
 				else
 				{
-					return state("LowLight");
+					return A_Jump(256,"LowLight");
 				}
 			}
 		HighLight:
