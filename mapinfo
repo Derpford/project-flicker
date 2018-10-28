@@ -1,5 +1,6 @@
 DamageType "Light"
 {
-	Factor = 1.0 // Light does not normally hurt you.
+	Factor = 1 // Light does not normally hurt you. This is handled via the
+						// LightSensitive Actor class.
 	Obituary = "%o was purified by %k."
 }
