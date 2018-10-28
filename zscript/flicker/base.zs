@@ -48,6 +48,7 @@ class LightSensitive : Actor
 			//We didn't take light 'damage' this tic, so blank that variable out.
 			lightDynamic = 0;
 		}
+		super.Tick();
 	}
 
 	int GetLight()
@@ -59,8 +60,8 @@ class LightSensitive : Actor
 	{
 		// Debug actor; changes color based on current light.
 		Spawn:
-			#### # 0;
-			#### # 0
+			TNT1 A 0;
+			TNT1 A 0
 			{
 				if(GetLight()>256)
 				{
@@ -84,5 +85,24 @@ class LightSensitive : Actor
 		LowLight:
 			FIRE A 1;
 			Goto Spawn;
+	}
+}
+
+class LightPuff : BulletPuff
+{
+	// Exists to have the Light damagetype and to not show up.
+	Default
+	{
+		+PUFFONACTORS;
+		DamageType "Light";
+	}
+	states
+	{
+		Spawn:
+		Death:
+		XDeath:
+		Crash:
+		Melee:
+			TNT1 A 0;
 	}
 }
