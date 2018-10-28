@@ -1,0 +1,5 @@
+DamageType "Light"
+{
+	Factor = 1.0 // Light does not normally hurt you.
+	Obituary = "%o was purified by %k."
+}
