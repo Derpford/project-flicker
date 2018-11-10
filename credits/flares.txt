@@ -1,0 +1,6 @@
+Submitted: scalliano
+Decorate: scalliano
+Sprites: id Software, scalliano
+Sprite Edit: scalliano
+Sounds: Raven Software
+Idea Base: Tomb Raider, Quake 4
