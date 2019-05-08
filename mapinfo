@@ -4,3 +4,8 @@ DamageType "Light"
 						// LightSensitive Actor class.
 	Obituary = "%o was purified by %k."
 }
+
+DoomEdNums
+{
+	1064 = FlickerMonster
+}
