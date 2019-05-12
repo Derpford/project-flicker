@@ -86,6 +86,7 @@ class FlickerMonster : LightSensitive
 	int fearTickRate;
 	int fearMax;
 	int fearMin;
+	int fearThreshold; //used to track if fear went over minimum
 	Property Hunger: hunger, hungerTickRate;
 	// Starting hunger, number of tics to increase hunger at
 	Property Fear: fear, fearTickRate;
@@ -105,10 +106,10 @@ class FlickerMonster : LightSensitive
 		RenderStyle "Translucent";
 		PainChance 256;
 		+SHADOW;
-		FlickerMonster.Hunger 0, 700;
+		FlickerMonster.Hunger 0, 350;
 		FlickerMonster.HungerLimits 0, 256;
-		FlickerMonster.Fear 0, 210;
-		FlickerMonster.FearLimits 10, 256;
+		FlickerMonster.Fear 0, 105;
+		FlickerMonster.FearLimits 80, 256;
 	}
 	
 	void AddHunger(int added = 1)
@@ -131,13 +132,21 @@ class FlickerMonster : LightSensitive
 	
 	void RemFear(int removed = 1)
 	{
-		//Same, but for removing fear.
-		self.fear = max(fearMin, self.fear-removed);
+		//Same, but for removing fear. Also respects fear threshold.
+		if(fearThreshold > fearMin)
+		{
+			self.fear = max(fearMin, self.fear-removed);
+		}
+		else
+		{
+			self.fear = max(0, self.fear-removed);
+		}
 	}
 	
 	Override Void Tick()
 	{
 		Super.Tick();
+		CVar debugFlag = CVar.GetCVar("debug");
 		
 		//LightCoef becomes either an alpha value based on current light, or 0 at random
 		Float LightCoef = max((GetLight()/256.0)-0.20,0);
@@ -159,14 +168,13 @@ class FlickerMonster : LightSensitive
 		fearTime += 1;
 		if(fearTime > fearTickRate)
 		{
-			fear -= 1;
+			fearThreshold = max(fearThreshold,fear);
+			RemFear(1);
 			fearTime = fearTime % fearTickRate;
-			fear = min(fear, fearMax);
-			fear = max(fear, fearMin);
+			if(debugFlag.GetBool()){console.printf("New fear: %d",fear);}
 		}
 		
 		// DEBUG FEATURES
-		CVar debugFlag = CVar.GetCVar("debug");
 		if(debugFlag.GetBool())
 		{
 			for(int i = 0; i < fear; i+=1)
