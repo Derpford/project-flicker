@@ -43,6 +43,8 @@ class FlickerFakeShadow : FlickerFake
 	}
 }
 
+
+
 class FlickerMonster : LightSensitive
 {
 	int hunger;
@@ -72,6 +74,7 @@ class FlickerMonster : LightSensitive
 		Speed 10;
 		RenderStyle "Translucent";
 		PainChance 256;
+		+SHADOW;
 		FlickerMonster.Hunger 0, 2100;
 		FlickerMonster.HungerLimits 0, 256;
 		FlickerMonster.Fear 0, 4200;
@@ -189,7 +192,16 @@ class FlickerMonster : LightSensitive
 		Melee:
 			SARG E 8 A_PlaySound("demon/melee");
 			SARG EF 5 A_CustomMeleeAttack(Random(1,3)*10,"","");
-			SARG G 3;
+			SARG G 3
+			{
+				RemHunger(1);
+				RemFear(1);
+			}
+			Goto See;
+		Missile:
+			SARG E 0 A_Jump(fear-hunger+GetLight(),See);
+			SARG E 5 A_SkullAttack(30);
+			SARG FG 3;
 			Goto See;
 		Pain:
 			SARG GH 5 
