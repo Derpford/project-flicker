@@ -12,6 +12,21 @@ class FlickerAIFear : Actor
 			Stop;
 	}
 }
+
+class FlickerAIHunger : Actor
+{
+	Default
+	{
+		+BRIGHT;
+	}
+	States
+	{
+		Spawn:
+			HUNG A 0;
+			HUNG A 1;
+			Stop;
+	}
+}
 class FlickerFake : LightSensitive
 {
 	Default
@@ -90,10 +105,10 @@ class FlickerMonster : LightSensitive
 		RenderStyle "Translucent";
 		PainChance 256;
 		+SHADOW;
-		FlickerMonster.Hunger 0, 2100;
+		FlickerMonster.Hunger 0, 700;
 		FlickerMonster.HungerLimits 0, 256;
 		FlickerMonster.Fear 0, 210;
-		FlickerMonster.FearLimits 0, 256;
+		FlickerMonster.FearLimits 10, 256;
 	}
 	
 	void AddHunger(int added = 1)
@@ -157,6 +172,10 @@ class FlickerMonster : LightSensitive
 			for(int i = 0; i < fear; i+=1)
 			{
 				A_SpawnProjectile("FlickerAIFear",random(32,64),random(-32,32),random(0,360));
+			}
+			for(int i = 0; i < hunger; i+=1)
+			{
+				A_SpawnProjectile("FlickerAIHunger",random(32,64),random(-32,32),random(0,360));
 			}
 		}
 	}
