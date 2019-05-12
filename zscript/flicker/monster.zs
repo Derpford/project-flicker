@@ -45,6 +45,24 @@ class FlickerFakeShadow : FlickerFake
 
 class FlickerMonster : LightSensitive
 {
+	int hunger;
+	int hungerTime;
+	int hungerTickRate;
+	int hungerMax;
+	int hungerMin;
+	int fear;
+	int fearTime;
+	int fearTickRate;
+	int fearMax;
+	int fearMin;
+	Property Hunger: hunger, hungerTickRate;
+	// Starting hunger, number of tics to increase hunger at
+	Property Fear: fear, fearTickRate;
+	// Starting fear, number of tics to decrease fear at
+	Property HungerLimits: hungerMin, hungerMax;
+	Property FearLimits: fearMin, fearMax;
+	// Minimum and Maximum for hunger and fear.
+	//Fear should not decrease below a certain level after it's risen above that point.
 	Default
 	{
 		Monster;
@@ -53,33 +71,66 @@ class FlickerMonster : LightSensitive
 		Height 56;
 		Speed 10;
 		RenderStyle "Translucent";
+		PainChance 256;
+		FlickerMonster.Hunger 0, 2100;
+		FlickerMonster.HungerLimits 0, 256;
+		FlickerMonster.Fear 0, 4200;
+		FlickerMonster.FearLimits 80, 256;
+	}
+	
+	void AddHunger(int added = 1)
+	{
+		//Add hunger without overflowing.
+		self.hunger = min(hungerMax, self.hunger+added);
+	}
+	
+	void RemHunger(int removed = 1)
+	{
+		//Same, but for removing hunger.
+		self.hunger = max(hungerMin, self.hunger-removed);
+	}
+	
+	void AddFear(int added = 1)
+	{
+		//Add fear without overflowing.
+		self.fear = min(fearMax, self.fear+added);
+	}
+	
+	void RemFear(int removed = 1)
+	{
+		//Same, but for removing fear.
+		self.fear = max(fearMin, self.fear-removed);
 	}
 	
 	Override Void Tick()
 	{
 		Super.Tick();
-		/*If(GetLight()<64)
-		{
-			//self.RenderStyle = "None";
-			A_SetRenderStyle(0.0,STYLE_OptFuzzy);
-		}
-		else if(GetLight()<192)
-		{
-			//self.RenderStyle = "OptFuzzy";
-			A_SetRenderStyle(0.5,STYLE_OptFuzzy);
-		}
-		else
-		{
-			//self.RenderStyle = "Normal";
-			A_SetRenderStyle(0.8,STYLE_OptFuzzy);
-		}*/
+		
+		//LightCoef becomes either an alpha value based on current light, or 0 at random
 		Float LightCoef = max((GetLight()/256.0)-0.20,0);
 		if(Random(1,GetLight())<64)
 		{
 			LightCoef = 0.0;
 		}
-		//Console.printf("Light level %d, coefficient %f",GetLight(),LightCoef);
 		A_SetRenderStyle(LightCoef, STYLE_Translucent);
+		
+		//Handle hunger and fear ticking. Hunger goes up over time and fear goes down.
+		hungerTime += 1;
+		if(hungerTime > hungerTickRate)
+		{
+			hunger += 1;
+			hungerTime = hungerTime % hungerTickRate;
+			hunger = min(hunger, hungerMax);
+			hunger = max(hunger, hungerMin);
+		}
+		fearTime += 1;
+		if(fearTime > fearTickRate)
+		{
+			fear += 1;
+			fearTime = fearTime % fearTickRate;
+			fear = min(fear, fearMax);
+			fear = max(fear, fearMin);
+		}
 	}
 	
 	States
@@ -87,12 +138,26 @@ class FlickerMonster : LightSensitive
 		Spawn:
 			SARG ABCB 5 A_Look;
 			Loop;
-		See:
-			SARG AB 3
+		Idle:
+			SARG A 3
 			{
+				if(random(1,256)<fear+hunger-GetLight())
+				{
+					A_ChangeFlag("FRIGHTENED",false);
+				}
+				A_Wander();
+			}
+			SARG BCD 3 A_Wander();
+		See:
+			SARG A 3
+			{
+				if(random(1,256)>fear-hunger+GetLight())
+				{
+					A_ChangeFlag("FRIGHTENED",true);
+				}
 				A_Chase();
 			}
-			SARG A 0
+			SARG B 3
 			{
 				if(GetLight()>80)
 				{
@@ -120,5 +185,19 @@ class FlickerMonster : LightSensitive
 					A_SpawnProjectile("FlickerFakeShadow",0,Random(-256+GetLight(),256-GetLight())/2,Random(0,360),CMF_AIMDIRECTION);
 				}
 			}
+			Loop;
+		Melee:
+			SARG E 8 A_PlaySound("demon/melee");
+			SARG EF 5 A_CustomMeleeAttack(Random(1,3)*10,"","");
+			SARG G 3;
+			Goto See;
+		Pain:
+			SARG GH 5 
+			{
+				A_PlaySound("demon/pain");
+				invoker.AddFear(Random(1,5)*5);
+			}
+			Goto See;
+			
 	}
 }
