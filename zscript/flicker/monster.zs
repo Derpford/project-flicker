@@ -1,3 +1,17 @@
+class FlickerAIFear : Actor
+{
+	Default
+	{
+		+BRIGHT;
+	}
+	States
+	{
+		Spawn:
+			FEAR A 0;
+			FEAR A 1;
+			Stop;
+	}
+}
 class FlickerFake : LightSensitive
 {
 	Default
@@ -72,13 +86,14 @@ class FlickerMonster : LightSensitive
 		Radius 20;
 		Height 56;
 		Speed 10;
+		MeleeRange 60;
 		RenderStyle "Translucent";
 		PainChance 256;
 		+SHADOW;
 		FlickerMonster.Hunger 0, 2100;
 		FlickerMonster.HungerLimits 0, 256;
-		FlickerMonster.Fear 0, 4200;
-		FlickerMonster.FearLimits 80, 256;
+		FlickerMonster.Fear 0, 210;
+		FlickerMonster.FearLimits 0, 256;
 	}
 	
 	void AddHunger(int added = 1)
@@ -129,10 +144,20 @@ class FlickerMonster : LightSensitive
 		fearTime += 1;
 		if(fearTime > fearTickRate)
 		{
-			fear += 1;
+			fear -= 1;
 			fearTime = fearTime % fearTickRate;
 			fear = min(fear, fearMax);
 			fear = max(fear, fearMin);
+		}
+		
+		// DEBUG FEATURES
+		CVar debugFlag = CVar.GetCVar("debug");
+		if(debugFlag.GetBool())
+		{
+			for(int i = 0; i < fear; i+=1)
+			{
+				A_SpawnProjectile("FlickerAIFear",random(32,64),random(-32,32),random(0,360));
+			}
 		}
 	}
 	
@@ -148,10 +173,21 @@ class FlickerMonster : LightSensitive
 				{
 					A_ChangeFlag("FRIGHTENED",false);
 				}
-				A_Wander();
+				//A_Wander();
+				A_Chase(); //should continue fleeing, or seek the player if the monster is done being afraid
 			}
-			SARG BCD 3 A_Wander();
+			SARG BCD 3 A_Chase;//A_Wander();
+			Loop;
 		See:
+			SARG A 0
+			{
+				if(!CheckIfTargetInLOS())
+				{
+					return ResolveState("Idle");
+				}
+				return ResolveState("SeeConfirm");
+			}
+		SeeConfirm:
 			SARG A 3
 			{
 				if(random(1,256)>fear-hunger+GetLight())
@@ -188,10 +224,10 @@ class FlickerMonster : LightSensitive
 					A_SpawnProjectile("FlickerFakeShadow",0,Random(-256+GetLight(),256-GetLight())/2,Random(0,360),CMF_AIMDIRECTION);
 				}
 			}
-			Loop;
+			Goto See;
 		Melee:
 			SARG E 8 A_PlaySound("demon/melee");
-			SARG EF 5 A_CustomMeleeAttack(Random(1,3)*10,"","");
+			SARG EF 5 A_CustomMeleeAttack(Random(1,3)*10);
 			SARG G 3
 			{
 				RemHunger(1);
@@ -199,16 +235,21 @@ class FlickerMonster : LightSensitive
 			}
 			Goto See;
 		Missile:
-			SARG E 0 A_Jump(fear-hunger+GetLight(),See);
+			SARG E 0 A_Jump(fear-hunger+GetLight(),"See");
+		MissileConfirm:
 			SARG E 5 A_SkullAttack(30);
-			SARG FG 3;
-			Goto See;
+			SARG F 1 A_JumpIfTargetInsideMeleeRange("Melee");
+			//SARG F 0 A_Jump(fear-hunger+GetLight(),"See");
+			Goto Missile;
+			//SARG FG 3 A_CustomMeleeAttack(Random(1,3)*10);
+			//Goto See;
 		Pain:
-			SARG GH 5 
+			SARG G 5 
 			{
 				A_PlaySound("demon/pain");
-				invoker.AddFear(Random(1,5)*5);
+				invoker.AddFear(Random(1,5));
 			}
+			SARG H 5;
 			Goto See;
 			
 	}
