@@ -268,7 +268,7 @@ class FlickerMonster : LightSensitive
 	States
 	{
 		Spawn:
-			SARG ABCB 5 { A_Look(); A_Wander(); }
+			SARG ABCB 5 { A_Look(); A_Wander(); bChaseGoal = true;}
 			Loop;
 
 		See:
@@ -303,6 +303,7 @@ class FlickerMonster : LightSensitive
 				}
 				CVar debugFlag = CVar.GetCVar("debug");
 				if(debugFlag.GetBool()){Console.printf("Current Goal is "..currentGoal..", timer is "..goalTimer..", target is "..target.GetTag());}
+				if(goal){Console.printf("Pathnode is "..goal.GetTag());}
 				return ResolveState("SeeConfirm");
 			}
 		SeeConfirm:
@@ -346,14 +347,14 @@ class FlickerMonster : LightSensitive
 			Goto See;
 
 		Wander:
-			SARG ABCB 3 { A_Wander(); A_Look(); }
+			SARG ABCD 3 { A_Wander(); A_Look(); }
 			Goto See;
 
 		Search:
 			SARG A 1
 			{
 				//Clear old path nodes.
-				A_KillChildren("none",0,"FlickerPathNode");
+				//A_KillChildren("none",0,"FlickerPathNode");
 				let newTarget = FlickerPathNode(Spawn("FlickerPathNode",pos));
 				oldTarget = target; // store old target for later
 				bool isSeekingPlayer;
@@ -370,11 +371,11 @@ class FlickerMonster : LightSensitive
 				{
 					Vector3 NewPos = Vec3Angle(512-GetLight(),i*45);
 					let compareTarget = FlickerPathNode(Spawn("FlickerPathNode",pos+NewPos));
-					if(isSeekingPlayer && compareTarget.Distance2D(oldTarget)>newTarget.Distance2D(oldTarget))
+					/*if(isSeekingPlayer && compareTarget.Distance2D(oldTarget)>newTarget.Distance2D(oldTarget))
 					{
 						newTarget = compareTarget;
 					}
-					else if(compareTarget.GetLight()>newTarget.GetLight())
+					else*/ if(compareTarget.GetLight()>newTarget.GetLight())
 					{
 						compareTarget.A_Die();
 						newTarget = compareTarget;
