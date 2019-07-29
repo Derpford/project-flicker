@@ -1,3 +1,34 @@
+struct LightFunctions
+{
+	static play void CastLight(Actor caller, int radius)
+	{
+		BlockThingsIterator light = BlockThingsIterator.create(caller,radius);
+		while (light.Next())
+		{
+			if(light.thing is "LightSensitive")
+			{
+				let LightThing = LightSensitive(light.thing);
+
+				if(LightThing)
+				{
+					int lightAmount = floor(caller.Vec3To(LightThing).Length());
+					LightThing.AddLight(LightAmount);
+				}
+			}
+
+			if(light.thing is "FlickerMonster")
+			{
+				let LightThing = FlickerMonster(light.thing);
+
+				if(LightThing)
+				{
+					LightThing.AddFear(); // Monster hates dynlights.
+				}
+			}
+		}
+	}
+}
+
 class LightSensitive : Actor
 {
 	// Light sensitive actor. Contains a Tick() function to handle sector light detection
@@ -5,15 +36,17 @@ class LightSensitive : Actor
 	int lightDynamic; // Light from "Light" damage.
 	bool lightDynTicked; // Set when taking light damage.
 											// If set, it's unset in Tick; if unset, lightDynamic is 0'd.
+	int prevLightDynamic;
+	int prevLightSector; // These store the previous light states.
 
 	int lightSector; // current sector light, checked every tick.
 
-	override int DamageMobj(Actor inflictor, Actor source, int damage, name type, int flags, double angle)
+	/*override int DamageMobj(Actor inflictor, Actor source, int damage, name type, int flags, double angle)
 	{
 		// Handles "Light Damage", AKA what I'm attaching to dynlights to simulate detecting dynlight.
 		if(type=="Light")
 		{
-			lightDynamic = damage;
+			lightDynamic += damage;
 			lightDynTicked = true;
 			return 0;
 		}
@@ -21,21 +54,16 @@ class LightSensitive : Actor
 		{
 			return super.DamageMobj(inflictor, source, damage, type, flags, angle);
 		}
-	}
+	}*/
+	// Deprecated after I found out that BlockThingIterator can do this.
 
 	override void Tick()
 	{
-		// Get the sector light and stick it in a handy variable every tick.
+		// Get all our light values in order, and apply fear.
 
-		//THIS SECTION REMOVED BECAUSE ACTORS DON'T HAVE A "player" VAR.
-		/*
-		//But first, make sure we aren't a voodoo doll. I don't use them but it's better to
-		//be safe than sorry.
-		if (!player || !player.mo || player.mo != self)
-		{
-			return Super.Tick();
-		}
-		*/
+		prevLightSector = lightSector;
+		prevLightDynamic = lightDynamic;
+
 
 		lightSector = Sector.pointInSector(pos.xy).lightlevel; //Gutawer is the best.
 
@@ -48,12 +76,19 @@ class LightSensitive : Actor
 			//We didn't take light 'damage' this tic, so blank that variable out.
 			lightDynamic = 0;
 		}
+
 		super.Tick();
 	}
 
 	int GetLight()
 	{
 		return lightSector+lightDynamic; // For convenience's sake.
+	}
+
+	void AddLight(int amt)
+	{
+		LightDynTicked = true;
+		lightDynamic += amt; // For other things to add light.
 	}
 
 	States

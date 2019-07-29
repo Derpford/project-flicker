@@ -39,7 +39,7 @@ class FlickerFake : LightSensitive
 	{
 		Spawn:
 			TNT1 A 0;
-			TNT1 A 0 
+			TNT1 A 0
 			{
 			Float LightCoef = max((GetLight()/256.0)-0.20,0);
 			//Console.printf("Light level %d, coefficient %f",GetLight(),LightCoef);
@@ -101,11 +101,13 @@ class FlickerPathNode : LightSensitive
 			TNT1 A 0;
 			Stop;
 	}
-	
+
 }
 
 class FlickerMonster : LightSensitive
 {
+	int currentGoal;
+	int goalTimer;
 	//Hunger and Fear values
 	int hunger;
 	int hungerTime;
@@ -126,7 +128,21 @@ class FlickerMonster : LightSensitive
 	Property FearLimits: fearMin, fearMax;
 	// Minimum and Maximum for hunger and fear.
 	//Fear should not decrease below a certain level after it's risen above that point.
-	
+	Property CurrentGoal: currentGoal;
+	// This should be one of the Enum'd goals.
+	Property GoalTimer: goalTimer;
+	// How many tics until goals can be reset.
+
+	Enum LightMonsterBehaviors
+	{
+		// Various behavior types. To be implemented later.
+		LM_EAT = 1,
+		LM_WANDER,
+		LM_FLEE,
+		LM_HUNT,
+		LM_FIND_DARK,
+	}
+
 	Actor oldTarget; //for storing the old target and switching back to it.
 	Default
 	{
@@ -143,26 +159,28 @@ class FlickerMonster : LightSensitive
 		FlickerMonster.HungerLimits 0, 256;
 		FlickerMonster.Fear 0, 105;
 		FlickerMonster.FearLimits 80, 256;
+		FlickerMonster.CurrentGoal LM_WANDER;
+		FlickerMonster.GoalTimer 30;
 	}
-	
+
 	void AddHunger(int added = 1)
 	{
 		//Add hunger without overflowing.
 		self.hunger = min(hungerMax, self.hunger+added);
 	}
-	
+
 	void RemHunger(int removed = 1)
 	{
 		//Same, but for removing hunger.
 		self.hunger = max(hungerMin, self.hunger-removed);
 	}
-	
+
 	void AddFear(int added = 1)
 	{
 		//Add fear without overflowing.
 		self.fear = min(fearMax, self.fear+added);
 	}
-	
+
 	void RemFear(int removed = 1)
 	{
 		//Same, but for removing fear. Also respects fear threshold.
@@ -175,12 +193,20 @@ class FlickerMonster : LightSensitive
 			self.fear = max(0, self.fear-removed);
 		}
 	}
-	
+
 	Override Void Tick()
 	{
 		Super.Tick();
+
+		if((lightSector+lightDynamic) > 32)
+		{
+			//If the light level went up, add fear.
+			if((lightSector+lightDynamic) > (prevLightSector+prevLightDynamic))
+			{ AddFear(5); }
+		}
+
 		CVar debugFlag = CVar.GetCVar("debug");
-		
+
 		//LightCoef becomes either an alpha value based on current light, or 0 at random
 		Float LightCoef = max((GetLight()/256.0)-0.20,0);
 		if(Random(1,GetLight())<64)
@@ -195,7 +221,7 @@ class FlickerMonster : LightSensitive
 		{
 			A_SetRenderStyle(LightCoef, STYLE_Translucent);
 		}
-		
+
 		//Handle hunger and fear ticking. Hunger goes up over time and fear goes down.
 		hungerTime += 1;
 		if(hungerTime > hungerTickRate)
@@ -211,9 +237,12 @@ class FlickerMonster : LightSensitive
 			fearThreshold = max(fearThreshold,fear);
 			RemFear(1);
 			fearTime = fearTime % fearTickRate;
-			if(debugFlag.GetBool()){console.printf("New fear: %d",fear);}
+			//if(debugFlag.GetBool()){console.printf("New fear: %d",fear);}
 		}
-		
+
+		// Tick down the goal timer.
+		goalTimer = max(0,goalTimer-min((hunger+fear)/10, 20)); // As hunger and fear goes up, monster changes behavior faster.
+
 		// DEBUG FEATURES
 		if(debugFlag.GetBool())
 		{
@@ -235,18 +264,76 @@ class FlickerMonster : LightSensitive
 			}
 		}
 	}
-	
+
 	States
 	{
 		Spawn:
-			SARG ABCB 5 A_Look;
+			SARG ABCB 5 { A_Look(); A_Wander(); }
 			Loop;
+
+		See:
+			SARG A 0
+			{
+				//if(CVar.GetCVar("debug").getBool()){console.printf("LOS: "..CheckIfTargetInLOS());}
+				if(!goalTimer)
+				{
+					if(random(1,256)<fear+GetLight())
+					{
+						currentGoal = LM_FLEE;
+						//bFRIGHTENED = true;
+						goalTimer = random(1,3)*fear;
+					}
+					else if(random(1,256)<GetLight())
+					{
+						currentGoal = LM_FIND_DARK;
+						bChaseGoal = true;
+						goalTimer = 400;
+					}
+					else if(!CheckIfTargetInLOS())
+					{
+						currentGoal = LM_WANDER;
+						goalTimer = 30;
+					}
+					else if(random(1,256)<hunger-fear-GetLight())
+					{
+						currentGoal = LM_HUNT;
+						goalTimer = 500;
+						//break;
+					}
+				}
+				CVar debugFlag = CVar.GetCVar("debug");
+				if(debugFlag.GetBool()){Console.printf("Current Goal is "..currentGoal..", timer is "..goalTimer..", target is "..target.GetTag());}
+				return ResolveState("SeeConfirm");
+			}
+		SeeConfirm:
+			TNT1 A 0
+			{
+				switch(currentGoal)
+				{
+					case LM_WANDER:
+						return(ResolveState("Wander"));
+						break;
+					case LM_FIND_DARK:
+						if(goal is "FlickerPathNode")
+						{ return(ResolveState("Idle"));	}
+						else
+						{	return(ResolveState("Search"));	}
+						break;
+					case LM_HUNT:
+						return(ResolveState("Hunt"));
+						break;
+					case LM_FLEE:
+						return(ResolveState("Flee"));
+				}
+				return(ResolveState("Idle"));
+			}
+
 		Idle:
 			SARG A 0
 			{
 				if(random(1,256)>fear-hunger)
 				{
-					bFRIGHTENED=false;
+					//bFRIGHTENED=false;
 				}
 				//A_Wander();
 				if(random(1,512)<GetLight() && !(goal is "FlickerPathNode"))
@@ -255,9 +342,13 @@ class FlickerMonster : LightSensitive
 				}
 				return ResolveState(null);
 			}
-			SARG ABCD 3 A_Chase;//A_Wander();
-			Loop;
-			
+			SARG ABCD 3 A_Chase(null,null);//A_Wander();
+			Goto See;
+
+		Wander:
+			SARG ABCB 3 { A_Wander(); A_Look(); }
+			Goto See;
+
 		Search:
 			SARG A 1
 			{
@@ -265,7 +356,16 @@ class FlickerMonster : LightSensitive
 				A_KillChildren("none",0,"FlickerPathNode");
 				let newTarget = FlickerPathNode(Spawn("FlickerPathNode",pos));
 				oldTarget = target; // store old target for later
-				bool isSeekingPlayer = random(1,256)<hunger-fear;
+				bool isSeekingPlayer;
+				if(currentGoal == LM_HUNT)
+				{
+					isSeekingPlayer = true;
+				}
+				else
+				{
+					isSeekingPlayer = false;
+				}
+
 				for(int i = 0; i<8;i++)
 				{
 					Vector3 NewPos = Vec3Angle(512-GetLight(),i*45);
@@ -279,44 +379,19 @@ class FlickerMonster : LightSensitive
 						compareTarget.A_Die();
 						newTarget = compareTarget;
 					}
-					
+
 				}
 				target = newTarget;
 				goal = newTarget;
 			}
-			
-		See:
-			SARG A 0
-			{
-				if(CVar.GetCVar("debug").getBool()){console.printf("LOS: %d",CheckIfTargetInLOS());}
-				if(!CheckIfTargetInLOS())
-				{
-					return ResolveState("Idle");
-				}
-				
-				if(random(1,256)<hunger-fear-GetLight())
-				{
-					if(CheckProximity("PlayerPawn",60,1))
-					{
-						return ResolveState("Melee");
-					}
-					else
-					{
-						return ResolveState("Missile");
-					}
-				}
-				if(random(1,256)<GetLight())
-				{
-					return ResolveState("Search");
-				}
-				return ResolveState("SeeConfirm");
-			}
-		SeeConfirm:
+			Goto Idle;
+
+		Hunt:
 			SARG A 3
 			{
 				if(random(212,256)<fear-hunger+GetLight())
 				{
-					bFRIGHTENED=true;
+					//bFRIGHTENED=true;
 				}
 				A_Chase();
 			}
@@ -331,8 +406,9 @@ class FlickerMonster : LightSensitive
 					A_SpawnProjectile("FlickerFake",0,Random(-256+GetLight(),256-GetLight())/2,Random(0,360),CMF_AIMDIRECTION);
 					A_SpawnProjectile("FlickerFakeShadow",0,Random(-256+GetLight(),256-GetLight())/2,Random(0,360),CMF_AIMDIRECTION);
 				}
+				A_Chase();
 			}
-			SARG CD 3 
+			SARG CD 3
 			{
 				A_Chase();
 			}
@@ -347,6 +423,19 @@ class FlickerMonster : LightSensitive
 					A_SpawnProjectile("FlickerFake",0,Random(-256+GetLight(),256-GetLight())/2,Random(0,360),CMF_AIMDIRECTION);
 					A_SpawnProjectile("FlickerFakeShadow",0,Random(-256+GetLight(),256-GetLight())/2,Random(0,360),CMF_AIMDIRECTION);
 				}
+
+				if(CheckIfTargetInLOS())
+				{
+					if(CheckProximity("PlayerPawn",60,1))
+					{
+						return ResolveState("Melee");
+					}
+					else
+					{
+						return ResolveState("Missile");
+					}
+				}
+				return ResolveState("See");
 			}
 			Goto See;
 		Melee:
@@ -358,7 +447,7 @@ class FlickerMonster : LightSensitive
 				RemFear(random(1,3));
 				if(random(1,256)>fear+hunger-GetLight())
 				{
-					bFRIGHTENED = false;
+					//bFRIGHTENED = false;
 				}
 			}
 			Goto See;
@@ -371,18 +460,23 @@ class FlickerMonster : LightSensitive
 			Goto Missile;
 			//SARG FG 3 A_CustomMeleeAttack(Random(1,3)*10);
 			//Goto See;
+
+		Flee:
+			SARG ABCB 4 A_Chase;
+			Goto See;
+
 		Pain:
-			SARG G 5 
+			SARG G 5
 			{
 				A_PlaySound("demon/pain");
 				invoker.AddFear(Random(1,5));
 				if(random(1,256)<fear-hunger+GetLight())
 				{
-					bFRIGHTENED=true;
+					//bFRIGHTENED=true;
 				}
 			}
 			SARG H 5;
 			Goto See;
-			
+
 	}
 }

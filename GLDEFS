@@ -1,0 +1,20 @@
+FlickerLight RFLARE
+{
+	color 1.0 0.5 0.25
+	size 112
+	secondarySize 128
+	chance 0.5
+	attenuate 1
+}
+
+object FlareProjectile
+{
+	frame FLARA
+	{
+		light RFLARE
+	}
+	frame FLARB
+	{
+		light RFLARE
+	}
+}
