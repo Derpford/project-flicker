@@ -1,0 +1,464 @@
+*** Fatal Error ***
+Address not mapped to object (signal 11)
+Address: 0x7ffde41fbfc8
+
+System: Linux dbrz-desk 5.1.10-1-default #1 SMP Mon Jun 17 14:44:35 UTC 2019 (ad24342) x86_64 x86_64 x86_64 GNU/Linux
+
+GZDoom version 4.1.3 (0)
+Compiler version: 9.1.1 20190611 [gcc-9-branch revision 272147]
+
+Command line: /usr/bin/gzdoom +give flareweapon +debug 0 -file .
+
+Wad 0: gzdoom.pk3
+Wad 1: zd_extra.pk3
+Wad 2: doom2.wad
+Wad 3: 
+
+Current map: test01
+
+viewx = -400.521793
+viewy = 53.304380
+viewz = 42.251261
+viewangle = 116.702271
+
+Executing: gdb --quiet --batch --command=gdb-respfile-E2Dj5l
+Registered pretty printers for UE4 classes
+[New LWP 12143]
+[New LWP 12144]
+[New LWP 12145]
+[New LWP 12146]
+[New LWP 12149]
+[New LWP 12150]
+[New LWP 12151]
+[New LWP 12154]
+[New LWP 12155]
+[New LWP 12156]
+[New LWP 12157]
+[New LWP 12158]
+[New LWP 12159]
+[New LWP 12160]
+[New LWP 12161]
+[New LWP 12162]
+[New LWP 12163]
+[New LWP 12164]
+[New LWP 12165]
+[New LWP 12166]
+[New LWP 12167]
+[New LWP 12168]
+[New LWP 12173]
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib64/libthread_db.so.1".
+0x00007f99979a1f8e in waitpid () from /lib64/libpthread.so.0
+
+* Loaded Libraries
+From                To                  Syms Read   Shared Object Library
+0x00007f9997b037d0  0x00007f9997b67c01  Yes (*)     /usr/lib64/libopenal.so.1
+0x00007f99979ccb10  0x00007f9997a99ece  Yes (*)     /usr/lib64/libSDL2-2.0.so.0
+0x00007f99979965a0  0x00007f99979a4501  Yes (*)     /lib64/libpthread.so.0
+0x00007f99979873a0  0x00007f999798a6bc  Yes (*)     /lib64/librt.so.1
+0x00007f999796d310  0x00007f999797a5a8  Yes (*)     /lib64/libz.so.1
+0x00007f99978d6540  0x00007f999792c505  Yes (*)     /usr/lib64/libjpeg.so.8
+0x00007f99978b2240  0x00007f99978cb6c2  Yes (*)     /usr/lib64/libbz2.so.1
+0x00007f99978ac130  0x00007f99978ace75  Yes (*)     /lib64/libdl.so.2
+0x00007f9997741b10  0x00007f9997830b63  Yes (*)     /usr/lib64/libglslang.so.suse6
+0x00007f9996f8c420  0x00007f9996fea7b8  Yes (*)     /usr/lib64/libSPIRV.so.suse6
+0x00007f9996f018f0  0x00007f9996f54f05  Yes (*)     /usr/lib64/libsndfile.so.1
+0x00007f9996e9f600  0x00007f9996ed97b3  Yes (*)     /usr/lib64/libmpg123.so.0
+0x00007f9996ddfae0  0x00007f9996e11072  Yes (*)     /usr/lib64/libfluidsynth.so.2
+0x00007f9996da8a40  0x00007f9996dc294d  Yes (*)     /usr/lib64/libclzma-suse.so.0
+0x00007f9996c62f50  0x00007f9996d47eee  Yes (*)     /usr/lib64/libstdc++.so.6
+0x00007f9996a8c1e0  0x00007f9996b26fe8  Yes (*)     /lib64/libm.so.6
+0x00007f9996a4d6b0  0x00007f9996a7001e  Yes (*)     /usr/lib64/libgomp.so.1
+0x00007f9996a2c310  0x00007f9996a3c49d  Yes (*)     /lib64/libgcc_s.so.1
+0x00007f9996888330  0x00007f99969d1edb  Yes (*)     /lib64/libc.so.6
+0x00007f99967919d0  0x00007f999681f1de  Yes (*)     /usr/lib64/libasound.so.2
+0x00007f9997c25090  0x00007f9997c43740  Yes (*)     /lib64/ld-linux-x86-64.so.2
+0x00007f99966e2c70  0x00007f999674a473  Yes (*)     /usr/lib64/libHLSL.so.suse6
+0x00007f999668a8e0  0x00007f99966b2933  Yes (*)     /usr/lib64/libFLAC.so.8
+0x00007f999667a250  0x00007f999667c525  Yes (*)     /usr/lib64/libogg.so.0
+0x00007f999664b5f0  0x00007f9996661bbd  Yes (*)     /usr/lib64/libvorbis.so.0
+0x00007f99965b00b0  0x00007f99965b275e  Yes (*)     /usr/lib64/libvorbisenc.so.2
+0x00007f9996582240  0x00007f9996593515  Yes (*)     /usr/lib64/libspeex.so.1
+0x00007f9996479da0  0x00007f99964f80ee  Yes (*)     /usr/lib64/libglib-2.0.so.0
+0x00007f9996456240  0x00007f9996457113  Yes (*)     /usr/lib64/libgmodule-2.0.so.0
+0x00007f9996416b90  0x00007f999643babb  Yes (*)     /usr/lib64/libjack.so.0
+0x00007f9996403320  0x00007f99964044e8  Yes (*)     /usr/lib64/libpulse-simple.so.0
+0x00007f99963bcd50  0x00007f99963e8a31  Yes (*)     /usr/lib64/libdbus-1.so.3
+0x00007f99963728b0  0x00007f9996398f35  Yes (*)     /lib64/libreadline.so.8
+0x00007f99962c31e0  0x00007f9996335330  Yes (*)     /usr/lib64/libpcre.so.1
+0x00007f999627b6a0  0x00007f99962a8281  Yes (*)     /usr/lib64/libpulse.so.0
+0x00007f99961fce90  0x00007f99962415fe  Yes (*)     /usr/lib64/pulseaudio/libpulsecommon-12.2.so
+0x00007f999613a940  0x00007f99961b2241  Yes (*)     /usr/lib64/libsystemd.so.0
+0x00007f99960ff410  0x00007f999610dc68  Yes (*)     /lib64/libtinfo.so.6
+0x00007f99960d76e0  0x00007f99960e9ab5  Yes (*)     /usr/lib64/libxcb.so.1
+0x00007f9996098510  0x00007f99960bb4e2  Yes (*)     /usr/lib64/liblzma.so.5
+0x00007f99960762f0  0x00007f999608ed07  Yes (*)     /usr/lib64/liblz4.so.1
+0x00007f999606c200  0x00007f999606da2f  Yes (*)     /usr/lib64/libcap.so.2
+0x00007f9996045bc0  0x00007f999605d3a0  Yes (*)     /lib64/libselinux.so.1
+0x00007f9995f2c5c0  0x00007f9995ff98d8  Yes (*)     /usr/lib64/libgcrypt.so.20
+0x00007f9995f1b200  0x00007f9995f1bebe  Yes (*)     /usr/lib64/libXau.so.6
+0x00007f9995efb680  0x00007f9995f0d44e  Yes (*)     /usr/lib64/libgpg-error.so.0
+0x00007f99956c0870  0x00007f99956dd659  Yes (*)     /usr/lib64/libudev.so.1
+0x00007f9995051ea0  0x00007f999539f136  Yes (*)     /usr/lib64/libgtk-3.so.0
+0x00007f9994ee6140  0x00007f9994f5d357  Yes (*)     /usr/lib64/libgdk-3.so.0
+0x00007f9994eacb20  0x00007f9994eb1f2e  Yes (*)     /usr/lib64/libpangocairo-1.0.so.0
+0x00007f9994d83960  0x00007f9994e0b49e  Yes (*)     /usr/lib64/libX11.so.6
+0x00007f9994d53270  0x00007f9994d5d9b7  Yes (*)     /usr/lib64/libXi.so.6
+0x00007f9994d4a1c0  0x00007f9994d4c526  Yes (*)     /usr/lib64/libXfixes.so.3
+0x00007f9994d400a0  0x00007f9994d4120d  Yes (*)     /usr/lib64/libcairo-gobject.so.2
+0x00007f9994c1aa00  0x00007f9994cf2c87  Yes (*)     /usr/lib64/libcairo.so.2
+0x00007f9994be3b30  0x00007f9994bf8163  Yes (*)     /usr/lib64/libgdk_pixbuf-2.0.so.0
+0x00007f9994bbe6b0  0x00007f9994bcbc5f  Yes (*)     /usr/lib64/libatk-1.0.so.0
+0x00007f9994b8ac90  0x00007f9994b9f4ae  Yes (*)     /usr/lib64/libatk-bridge-2.0.so.0
+0x00007f9994aa8130  0x00007f9994b0ba5e  Yes (*)     /usr/lib64/libepoxy.so.0
+0x00007f9994a28180  0x00007f9994a2c161  Yes (*)     /usr/lib64/libfribidi.so.0
+0x00007f9994895880  0x00007f99949940b6  Yes (*)     /usr/lib64/libgio-2.0.so.0
+0x00007f9994808740  0x00007f999483975e  Yes (*)     /usr/lib64/libgobject-2.0.so.0
+0x00007f9994707e90  0x00007f99947b034e  Yes (*)     /usr/lib64/libharfbuzz.so.0
+0x00007f99946ec010  0x00007f99946f545d  Yes (*)     /usr/lib64/libpangoft2-1.0.so.0
+0x00007f99946a89f0  0x00007f99946c9eb0  Yes (*)     /usr/lib64/libpango-1.0.so.0
+0x00007f999465b820  0x00007f999467e43a  Yes (*)     /usr/lib64/libfontconfig.so.1
+0x00007f99945a69f0  0x00007f9994615ce3  Yes (*)     /usr/lib64/libfreetype.so.6
+0x00007f9994595110  0x00007f9994595a71  Yes (*)     /usr/lib64/libXinerama.so.1
+0x00007f9994589220  0x00007f999458f4a5  Yes (*)     /usr/lib64/libXrandr.so.2
+0x00007f999457d5f0  0x00007f99945820e8  Yes (*)     /usr/lib64/libXcursor.so.1
+0x00007f99945760d0  0x00007f9994576b15  Yes (*)     /usr/lib64/libXcomposite.so.1
+0x00007f9994571100  0x00007f9994571a6b  Yes (*)     /usr/lib64/libXdamage.so.1
+0x00007f9994533520  0x00007f999454da7a  Yes (*)     /usr/lib64/libxkbcommon.so.0
+0x00007f9994526250  0x00007f9994527d47  Yes (*)     /usr/lib64/libwayland-cursor.so.0
+0x00007f9994520060  0x00007f99945201e5  Yes (*)     /usr/lib64/libwayland-egl.so.1
+0x00007f9994513460  0x00007f9994518051  Yes (*)     /usr/lib64/libwayland-client.so.0
+0x00007f99944fc3d0  0x00007f999450640a  Yes (*)     /usr/lib64/libXext.so.6
+0x00007f999445d570  0x00007f99944de820  Yes (*)     /usr/lib64/libpixman-1.so.0
+0x00007f9994440450  0x00007f999444aae7  Yes (*)     /usr/lib64/libEGL.so.1
+0x00007f9994400920  0x00007f999442f698  Yes (*)     /usr/lib64/libpng16.so.16
+0x00007f99943f6090  0x00007f99943f6b73  Yes (*)     /usr/lib64/libxcb-shm.so.0
+0x00007f99943eb230  0x00007f99943efc1e  Yes (*)     /usr/lib64/libxcb-render.so.0
+0x00007f99943da270  0x00007f99943e0382  Yes (*)     /usr/lib64/libXrender.so.1
+0x00007f9994387220  0x00007f999438a62f  Yes (*)     /usr/lib64/libGL.so.1
+0x00007f999431b4a0  0x00007f999432d8d8  Yes (*)     /usr/lib64/libatspi.so.0
+0x00007f99942b7af0  0x00007f99942f200e  Yes (*)     /usr/lib64/libmount.so.1
+0x00007f99942943a0  0x00007f99942a0050  Yes (*)     /lib64/libresolv.so.2
+0x00007f99942862a0  0x00007f999428b7d6  Yes (*)     /usr/lib64/libffi.so.7
+0x00007f99942621a0  0x00007f999427b1fa  Yes (*)     /usr/lib64/libgraphite2.so.3
+0x00007f99942562a0  0x00007f9994259c33  Yes (*)     /usr/lib64/libthai.so.0
+0x00007f9994223240  0x00007f9994245b93  Yes (*)     /usr/lib64/libexpat.so.1
+0x00007f9994218320  0x00007f999421bcc9  Yes (*)     /usr/lib64/libuuid.so.1
+0x00007f9994199280  0x00007f999419c0f7  Yes (*)     /usr/lib64/libGLdispatch.so.0
+0x00007f9994128460  0x00007f999413237c  Yes (*)     /usr/lib64/libGLX.so.0
+0x00007f99940daf50  0x00007f999410d77e  Yes (*)     /usr/lib64/libblkid.so.1
+0x00007f99940c7240  0x00007f99940ca570  Yes (*)     /usr/lib64/libdatrie.so.1
+0x00007f9997c0c4e0  0x00007f9997c0e5c0  Yes (*)     /usr/lib64/gtk-3.0/modules/libcanberra-gtk-module.so
+0x00007f9997c05420  0x00007f9997c06a2e  Yes (*)     /usr/lib64/libcanberra-gtk3.so.0
+0x00007f9993dc0620  0x00007f9993dc8b8a  Yes (*)     /usr/lib64/libcanberra.so.0
+0x00007f9997bfb410  0x00007f9997bff89c  Yes (*)     /usr/lib64/libvorbisfile.so.3
+0x00007f9993db4480  0x00007f9993db8616  Yes (*)     /usr/lib64/libltdl.so.7
+0x00007f9993d86fb0  0x00007f9993da1e02  Yes (*)     /usr/lib64/gio/modules/libgvfsdbus.so
+0x00007f9993d4d740  0x00007f9993d64ac9  Yes (*)     /usr/lib64/gvfs/libgvfscommon.so
+0x00007f9992a27180  0x00007f9992a280b9  Yes (*)     /usr/lib64/libcanberra-0.30/libcanberra-multi.so
+0x00007f9992a1e4f0  0x00007f9992a2162a  Yes (*)     /usr/lib64/libcanberra-0.30/libcanberra-pulse.so
+0x00007f9992216370  0x00007f9992217862  Yes (*)     /usr/lib64/libcanberra-0.30/libcanberra-alsa.so
+0x00007f999220f280  0x00007f9992210512  Yes (*)     /usr/lib64/libcanberra-0.30/libcanberra-oss.so
+0x00007f99903b2140  0x00007f99903b2dad  Yes (*)     /usr/lib64/libXss.so.1
+0x00007f99903ab160  0x00007f99903ad8e9  Yes (*)     /usr/lib64/libXxf86vm.so.1
+0x00007f9990349ec0  0x00007f999038b2ee  Yes (*)     /usr/lib64/libGLX_mesa.so.0
+0x00007f9990304100  0x00007f999030fc10  Yes (*)     /usr/lib64/libglapi.so.0
+0x00007f99902e9580  0x00007f99902f21db  Yes (*)     /usr/lib64/libdrm.so.2
+0x00007f99902d20b0  0x00007f99902da4e5  Yes (*)     /usr/lib64/libxcb-glx.so.0
+0x00007f99902c2040  0x00007f99902c211b  Yes (*)     /usr/lib64/libX11-xcb.so.1
+0x00007f99902bc090  0x00007f99902bd1d5  Yes (*)     /usr/lib64/libxcb-dri2.so.0
+0x00007f99902b60c0  0x00007f99902b6f13  Yes (*)     /usr/lib64/libxcb-dri3.so.0
+0x00007f99902b0070  0x00007f99902b08d6  Yes (*)     /usr/lib64/libxcb-present.so.0
+0x00007f99902a8120  0x00007f99902aa1e2  Yes (*)     /usr/lib64/libxcb-sync.so.1
+0x00007f99902a10e0  0x00007f99902a139c  Yes (*)     /usr/lib64/libxshmfence.so.1
+0x00007f995af44830  0x00007f995b9ea1ee  Yes (*)     /usr/lib64/dri/radeonsi_dri.so
+0x00007f994cb120a0  0x00007f994ea0ebef  Yes (*)     /usr/lib64/libLLVM.so.8
+0x00007f99902931b0  0x00007f9990299915  Yes (*)     /usr/lib64/libdrm_radeon.so.1
+0x00007f999027a360  0x00007f9990289a65  Yes (*)     /usr/lib64/libelf.so.1
+0x00007f999026d3d0  0x00007f999027175d  Yes (*)     /usr/lib64/libdrm_amdgpu.so.1
+0x00007f9990262320  0x00007f9990265f7e  Yes (*)     /usr/lib64/libdrm_nouveau.so.2
+0x00007f999022ebd0  0x00007f99902499f0  Yes (*)     /usr/lib64/../lib64/libedit.so.0
+0x00007f99900ebc60  0x00007f99901ce94e  Yes (*)     /usr/lib64/../lib64/libxml2.so.2
+(*): Shared library is missing debugging information.
+
+* Threads
+  Id   Target Id                                         Frame 
+* 1    Thread 0x7f9995eed9c0 (LWP 12142) "gzdoom"        0x00007f99979a1f8e in waitpid () from /lib64/libpthread.so.0
+  2    Thread 0x7f9995eec700 (LWP 12143) "gzdoom"        0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  3    Thread 0x7f9993d37700 (LWP 12144) "gmain"         0x00007f9996955c9f in poll () from /lib64/libc.so.6
+  4    Thread 0x7f9993536700 (LWP 12145) "gdbus"         0x00007f9996955c9f in poll () from /lib64/libc.so.6
+  5    Thread 0x7f9992a1b700 (LWP 12146) "threaded-ml"   0x00007f9996955c9f in poll () from /lib64/libc.so.6
+  6    Thread 0x7f999210b700 (LWP 12149) "threaded-ml"   0x00007f9996955c9f in poll () from /lib64/libc.so.6
+  7    Thread 0x7f999190a700 (LWP 12150) "gzdoom"        0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  8    Thread 0x7f9990ee2700 (LWP 12151) "gzdoom"        0x00007f99979a06f6 in do_futex_wait.constprop () from /lib64/libpthread.so.0
+  9    Thread 0x7f9990be1700 (LWP 12154) "gzdoom:cs0"    0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  10   Thread 0x7f995ad61700 (LWP 12155) "gzdoom:disk$0" 0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  11   Thread 0x7f995a560700 (LWP 12156) "gzdoom:sh0"    0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  12   Thread 0x7f9959d5f700 (LWP 12157) "gzdoom:sh1"    0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  13   Thread 0x7f995955e700 (LWP 12158) "gzdoom:sh2"    0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  14   Thread 0x7f9958d5d700 (LWP 12159) "gzdoom:sh3"    0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  15   Thread 0x7f993ffff700 (LWP 12160) "gzdoom:sh4"    0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  16   Thread 0x7f993f7fe700 (LWP 12161) "gzdoom:sh5"    0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  17   Thread 0x7f993effd700 (LWP 12162) "gzdoom:sh6"    0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  18   Thread 0x7f993e7fc700 (LWP 12163) "gzdoom:sh7"    0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  19   Thread 0x7f993dffb700 (LWP 12164) "gzdoom:sh8"    0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  20   Thread 0x7f993d7fa700 (LWP 12165) "gzdoom:shlo0"  0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  21   Thread 0x7f993cff9700 (LWP 12166) "gzdoom:shlo1"  0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  22   Thread 0x7f991bfff700 (LWP 12167) "gzdoom:shlo2"  0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  23   Thread 0x7f991b7fe700 (LWP 12168) "gzdoom:shlo3"  0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  24   Thread 0x7f991affd700 (LWP 12173) "gzdoom:gdrv0"  0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+
+* FPU Status
+  R7: Empty   0x00000000000000000000
+  R6: Empty   0x00000000000000000000
+  R5: Empty   0x00000000000000000000
+  R4: Empty   0x00000000000000000000
+  R3: Empty   0x00000000000000000000
+  R2: Empty   0x00000000000000000000
+  R1: Empty   0x00000000000000000000
+=>R0: Empty   0x00000000000000000000
+
+Status Word:         0x0000                                            
+                       TOP: 0
+Control Word:        0x037f   IM DM ZM OM UM PM
+                       PC: Extended Precision (64-bits)
+                       RC: Round to nearest
+Tag Word:            0xffff
+Instruction Pointer: 0x00:0x00000000
+Operand Pointer:     0x00:0x00000000
+Opcode:              0x0000
+
+* Registers
+rax            0xfffffffffffffe00  -512
+rbx            0x2f8e              12174
+rcx            0x7f99979a1f8e      140297650184078
+rdx            0x0                 0
+rsi            0x558649fc1b4c      94035255237452
+rdi            0x2f8e              12174
+rbp            0xb                 0xb
+rsp            0x558649fc1b20      0x558649fc1b20 <altstack+6784>
+r8             0x0                 0
+r9             0x7f9995eed9c0      140297622182336
+r10            0x0                 0
+r11            0x246               582
+r12            0x558649fc1b4c      94035255237452
+r13            0x55864a83b9a0      94035264125344
+r14            0x7ffde41fc300      140728430740224
+r15            0x7ffde41fc770      140728430741360
+rip            0x7f99979a1f8e      0x7f99979a1f8e <waitpid+78>
+eflags         0x246               [ PF ZF IF ]
+cs             0x33                51
+ss             0x2b                43
+ds             0x0                 0
+es             0x0                 0
+fs             0x0                 0
+gs             0x0                 0
+
+* Backtrace
+
+Thread 24 (Thread 0x7f991affd700 (LWP 12173)):
+#0  0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () at /lib64/libpthread.so.0
+#1  0x00007f995b67693b in  () at /usr/lib64/dri/radeonsi_dri.so
+#2  0x00007f995b676557 in  () at /usr/lib64/dri/radeonsi_dri.so
+#3  0x00007f9997997faa in start_thread () at /lib64/libpthread.so.0
+#4  0x00007f999696071f in clone () at /lib64/libc.so.6
+
+Thread 23 (Thread 0x7f991b7fe700 (LWP 12168)):
+#0  0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () at /lib64/libpthread.so.0
+#1  0x00007f995b67693b in  () at /usr/lib64/dri/radeonsi_dri.so
+#2  0x00007f995b676557 in  () at /usr/lib64/dri/radeonsi_dri.so
+#3  0x00007f9997997faa in start_thread () at /lib64/libpthread.so.0
+#4  0x00007f999696071f in clone () at /lib64/libc.so.6
+
+Thread 22 (Thread 0x7f991bfff700 (LWP 12167)):
+#0  0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () at /lib64/libpthread.so.0
+#1  0x00007f995b67693b in  () at /usr/lib64/dri/radeonsi_dri.so
+#2  0x00007f995b676557 in  () at /usr/lib64/dri/radeonsi_dri.so
+#3  0x00007f9997997faa in start_thread () at /lib64/libpthread.so.0
+#4  0x00007f999696071f in clone () at /lib64/libc.so.6
+
+Thread 21 (Thread 0x7f993cff9700 (LWP 12166)):
+#0  0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () at /lib64/libpthread.so.0
+#1  0x00007f995b67693b in  () at /usr/lib64/dri/radeonsi_dri.so
+#2  0x00007f995b676557 in  () at /usr/lib64/dri/radeonsi_dri.so
+#3  0x00007f9997997faa in start_thread () at /lib64/libpthread.so.0
+#4  0x00007f999696071f in clone () at /lib64/libc.so.6
+
+Thread 20 (Thread 0x7f993d7fa700 (LWP 12165)):
+#0  0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () at /lib64/libpthread.so.0
+#1  0x00007f995b67693b in  () at /usr/lib64/dri/radeonsi_dri.so
+#2  0x00007f995b676557 in  () at /usr/lib64/dri/radeonsi_dri.so
+#3  0x00007f9997997faa in start_thread () at /lib64/libpthread.so.0
+#4  0x00007f999696071f in clone () at /lib64/libc.so.6
+
+Thread 19 (Thread 0x7f993dffb700 (LWP 12164)):
+#0  0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () at /lib64/libpthread.so.0
+#1  0x00007f995b67693b in  () at /usr/lib64/dri/radeonsi_dri.so
+#2  0x00007f995b676557 in  () at /usr/lib64/dri/radeonsi_dri.so
+#3  0x00007f9997997faa in start_thread () at /lib64/libpthread.so.0
+#4  0x00007f999696071f in clone () at /lib64/libc.so.6
+
+Thread 18 (Thread 0x7f993e7fc700 (LWP 12163)):
+#0  0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () at /lib64/libpthread.so.0
+#1  0x00007f995b67693b in  () at /usr/lib64/dri/radeonsi_dri.so
+#2  0x00007f995b676557 in  () at /usr/lib64/dri/radeonsi_dri.so
+#3  0x00007f9997997faa in start_thread () at /lib64/libpthread.so.0
+#4  0x00007f999696071f in clone () at /lib64/libc.so.6
+
+Thread 17 (Thread 0x7f993effd700 (LWP 12162)):
+#0  0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () at /lib64/libpthread.so.0
+#1  0x00007f995b67693b in  () at /usr/lib64/dri/radeonsi_dri.so
+#2  0x00007f995b676557 in  () at /usr/lib64/dri/radeonsi_dri.so
+#3  0x00007f9997997faa in start_thread () at /lib64/libpthread.so.0
+#4  0x00007f999696071f in clone () at /lib64/libc.so.6
+
+Thread 16 (Thread 0x7f993f7fe700 (LWP 12161)):
+#0  0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () at /lib64/libpthread.so.0
+#1  0x00007f995b67693b in  () at /usr/lib64/dri/radeonsi_dri.so
+#2  0x00007f995b676557 in  () at /usr/lib64/dri/radeonsi_dri.so
+#3  0x00007f9997997faa in start_thread () at /lib64/libpthread.so.0
+#4  0x00007f999696071f in clone () at /lib64/libc.so.6
+
+Thread 15 (Thread 0x7f993ffff700 (LWP 12160)):
+#0  0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () at /lib64/libpthread.so.0
+#1  0x00007f995b67693b in  () at /usr/lib64/dri/radeonsi_dri.so
+#2  0x00007f995b676557 in  () at /usr/lib64/dri/radeonsi_dri.so
+#3  0x00007f9997997faa in start_thread () at /lib64/libpthread.so.0
+#4  0x00007f999696071f in clone () at /lib64/libc.so.6
+
+Thread 14 (Thread 0x7f9958d5d700 (LWP 12159)):
+#0  0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () at /lib64/libpthread.so.0
+#1  0x00007f995b67693b in  () at /usr/lib64/dri/radeonsi_dri.so
+#2  0x00007f995b676557 in  () at /usr/lib64/dri/radeonsi_dri.so
+#3  0x00007f9997997faa in start_thread () at /lib64/libpthread.so.0
+#4  0x00007f999696071f in clone () at /lib64/libc.so.6
+
+Thread 13 (Thread 0x7f995955e700 (LWP 12158)):
+#0  0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () at /lib64/libpthread.so.0
+#1  0x00007f995b67693b in  () at /usr/lib64/dri/radeonsi_dri.so
+#2  0x00007f995b676557 in  () at /usr/lib64/dri/radeonsi_dri.so
+#3  0x00007f9997997faa in start_thread () at /lib64/libpthread.so.0
+#4  0x00007f999696071f in clone () at /lib64/libc.so.6
+
+Thread 12 (Thread 0x7f9959d5f700 (LWP 12157)):
+#0  0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () at /lib64/libpthread.so.0
+#1  0x00007f995b67693b in  () at /usr/lib64/dri/radeonsi_dri.so
+#2  0x00007f995b676557 in  () at /usr/lib64/dri/radeonsi_dri.so
+#3  0x00007f9997997faa in start_thread () at /lib64/libpthread.so.0
+#4  0x00007f999696071f in clone () at /lib64/libc.so.6
+
+Thread 11 (Thread 0x7f995a560700 (LWP 12156)):
+#0  0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () at /lib64/libpthread.so.0
+#1  0x00007f995b67693b in  () at /usr/lib64/dri/radeonsi_dri.so
+#2  0x00007f995b676557 in  () at /usr/lib64/dri/radeonsi_dri.so
+#3  0x00007f9997997faa in start_thread () at /lib64/libpthread.so.0
+#4  0x00007f999696071f in clone () at /lib64/libc.so.6
+
+Thread 10 (Thread 0x7f995ad61700 (LWP 12155)):
+#0  0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () at /lib64/libpthread.so.0
+#1  0x00007f995b67693b in  () at /usr/lib64/dri/radeonsi_dri.so
+#2  0x00007f995b676557 in  () at /usr/lib64/dri/radeonsi_dri.so
+#3  0x00007f9997997faa in start_thread () at /lib64/libpthread.so.0
+#4  0x00007f999696071f in clone () at /lib64/libc.so.6
+
+Thread 9 (Thread 0x7f9990be1700 (LWP 12154)):
+#0  0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () at /lib64/libpthread.so.0
+#1  0x00007f995b67693b in  () at /usr/lib64/dri/radeonsi_dri.so
+#2  0x00007f995b676557 in  () at /usr/lib64/dri/radeonsi_dri.so
+#3  0x00007f9997997faa in start_thread () at /lib64/libpthread.so.0
+#4  0x00007f999696071f in clone () at /lib64/libc.so.6
+
+Thread 8 (Thread 0x7f9990ee2700 (LWP 12151)):
+#0  0x00007f99979a06f6 in do_futex_wait.constprop () at /lib64/libpthread.so.0
+#1  0x00007f99979a07f8 in __new_sem_wait_slow.constprop.0 () at /lib64/libpthread.so.0
+#2  0x00007f9997b67a99 in  () at /usr/lib64/libopenal.so.1
+#3  0x00007f9997b156fd in  () at /usr/lib64/libopenal.so.1
+#4  0x00007f9997b675e7 in  () at /usr/lib64/libopenal.so.1
+#5  0x00007f9997997faa in start_thread () at /lib64/libpthread.so.0
+#6  0x00007f999696071f in clone () at /lib64/libc.so.6
+
+Thread 7 (Thread 0x7f999190a700 (LWP 12150)):
+#0  0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () at /lib64/libpthread.so.0
+#1  0x00007f99962a26c8 in pa_threaded_mainloop_wait () at /usr/lib64/libpulse.so.0
+#2  0x00007f9997b60bce in  () at /usr/lib64/libopenal.so.1
+#3  0x00007f9997b675e7 in  () at /usr/lib64/libopenal.so.1
+#4  0x00007f9997997faa in start_thread () at /lib64/libpthread.so.0
+#5  0x00007f999696071f in clone () at /lib64/libc.so.6
+
+Thread 6 (Thread 0x7f999210b700 (LWP 12149)):
+#0  0x00007f9996955c9f in poll () at /lib64/libc.so.6
+#1  0x00007f99962a20f2 in  () at /usr/lib64/libpulse.so.0
+#2  0x00007f99962938b9 in pa_mainloop_poll () at /usr/lib64/libpulse.so.0
+#3  0x00007f9996293f3f in pa_mainloop_iterate () at /usr/lib64/libpulse.so.0
+#4  0x00007f9996293ff0 in pa_mainloop_run () at /usr/lib64/libpulse.so.0
+#5  0x00007f99962a2039 in  () at /usr/lib64/libpulse.so.0
+#6  0x00007f999623cdb8 in  () at /usr/lib64/pulseaudio/libpulsecommon-12.2.so
+#7  0x00007f9997997faa in start_thread () at /lib64/libpthread.so.0
+#8  0x00007f999696071f in clone () at /lib64/libc.so.6
+
+Thread 5 (Thread 0x7f9992a1b700 (LWP 12146)):
+#0  0x00007f9996955c9f in poll () at /lib64/libc.so.6
+#1  0x00007f99962a20f2 in  () at /usr/lib64/libpulse.so.0
+#2  0x00007f99962938b9 in pa_mainloop_poll () at /usr/lib64/libpulse.so.0
+#3  0x00007f9996293f3f in pa_mainloop_iterate () at /usr/lib64/libpulse.so.0
+#4  0x00007f9996293ff0 in pa_mainloop_run () at /usr/lib64/libpulse.so.0
+#5  0x00007f99962a2039 in  () at /usr/lib64/libpulse.so.0
+#6  0x00007f999623cdb8 in  () at /usr/lib64/pulseaudio/libpulsecommon-12.2.so
+#7  0x00007f9997997faa in start_thread () at /lib64/libpthread.so.0
+#8  0x00007f999696071f in clone () at /lib64/libc.so.6
+
+Thread 4 (Thread 0x7f9993536700 (LWP 12145)):
+#0  0x00007f9996955c9f in poll () at /lib64/libc.so.6
+#1  0x00007f99964acd2e in  () at /usr/lib64/libglib-2.0.so.0
+#2  0x00007f99964ad0d3 in g_main_loop_run () at /usr/lib64/libglib-2.0.so.0
+#3  0x00007f999496a176 in  () at /usr/lib64/libgio-2.0.so.0
+#4  0x00007f99964d567d in  () at /usr/lib64/libglib-2.0.so.0
+#5  0x00007f9997997faa in start_thread () at /lib64/libpthread.so.0
+#6  0x00007f999696071f in clone () at /lib64/libc.so.6
+
+Thread 3 (Thread 0x7f9993d37700 (LWP 12144)):
+#0  0x00007f9996955c9f in poll () at /lib64/libc.so.6
+#1  0x00007f99964acd2e in  () at /usr/lib64/libglib-2.0.so.0
+#2  0x00007f99964ace4f in g_main_context_iteration () at /usr/lib64/libglib-2.0.so.0
+#3  0x00007f99964acea1 in  () at /usr/lib64/libglib-2.0.so.0
+#4  0x00007f99964d567d in  () at /usr/lib64/libglib-2.0.so.0
+#5  0x00007f9997997faa in start_thread () at /lib64/libpthread.so.0
+#6  0x00007f999696071f in clone () at /lib64/libc.so.6
+
+Thread 2 (Thread 0x7f9995eec700 (LWP 12143)):
+#0  0x00007f999799de05 in pthread_cond_wait@@GLIBC_2.3.2 () at /lib64/libpthread.so.0
+#1  0x00007f9996c93abc in std::condition_variable::wait(std::unique_lock<std::mutex>&) () at /usr/lib64/libstdc++.so.6
+#2  0x000055864986dd9f in ctpl::thread_pool::set_thread(int)::{lambda()#1}::operator()() const ()
+#3  0x00007f9996c98e40 in  () at /usr/lib64/libstdc++.so.6
+#4  0x00007f9997997faa in start_thread () at /lib64/libpthread.so.0
+#5  0x00007f999696071f in clone () at /lib64/libc.so.6
+
+Thread 1 (Thread 0x7f9995eed9c0 (LWP 12142)):
+#0  0x00007f99979a1f8e in waitpid () at /lib64/libpthread.so.0
+#1  0x0000558649653444 in crash_catcher ()
+#2  0x00007f99979a2630 in <signal handler called> () at /lib64/libpthread.so.0
+#3  0x0000558649ac50fa in FLevelLocals::CollectConnectedGroups(int, TVector3<double> const&, double, double, FPortalGroupArray&) ()
+#4  0x00005586499d835e in FMultiBlockThingsIterator::FMultiBlockThingsIterator(FPortalGroupArray&, FLevelLocals*, double, double, double, double, double, bool, sector_t*) ()
+#5  0x00005586499ce299 in P_CheckPosition(AActor*, TVector2<double> const&, FCheckPosition&, bool) ()
+#6  0x00005586499cfc3f in P_TryMove(AActor*, TVector2<double> const&, int, secplane_t const*, FCheckPosition&, bool) ()
+#7  0x00005586499ae5ca in P_Move(AActor*) ()
+#8  0x00005586499b15d8 in A_Wander(AActor*, int) ()
+#9  0x00007f9990c24647 in  ()
+#10 0x0000558651d52b90 in  ()
+#11 0x00007ffde41fc8a0 in  ()
+#12 0x00007ffde41fc8f0 in  ()
+#13 0x00005586100044c5 in  ()
+#14 0x00007f9995eed9b0 in  ()
+#15 0x00005586516b2a10 in  ()
+#16 0x00007ffde41fca10 in  ()
+#17 0x00005586508a2888 in  ()
+#18 0x0000000100000000 in  ()
+#19 0x00005586516b2a38 in  ()
+#20 0x00007ffde41fc8b8 in  ()
+#21 0x00007ffde41fca03 in  ()
+#22 0x00007ffde41fc940 in  ()
+#23 0x00007ffde41fca60 in  ()
+#24 0x00007ffde41fc9d0 in  ()
+#25 0x403c000000000000 in  ()
+#26 0x0000000000000000 in  ()
+[Inferior 1 (process 12142) detached]

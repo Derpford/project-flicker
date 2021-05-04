@@ -155,6 +155,7 @@ class FlickerMonster : LightSensitive
 		RenderStyle "Translucent";
 		PainChance 256;
 		+SHADOW;
+		//+FRIENDLY; // It doesn't immediately try to kill you, anyway.
 		FlickerMonster.Hunger 0, 350;
 		FlickerMonster.HungerLimits 0, 256;
 		FlickerMonster.Fear 0, 105;
@@ -302,8 +303,16 @@ class FlickerMonster : LightSensitive
 					}
 				}
 				CVar debugFlag = CVar.GetCVar("debug");
-				if(debugFlag.GetBool()){Console.printf("Current Goal is "..currentGoal..", timer is "..goalTimer..", target is "..target.GetTag());}
-				if(goal){Console.printf("Pathnode is "..goal.GetTag());}
+				if(debugFlag.GetBool())
+				{
+					String debugTarget;
+					String debugGoal;
+					if(target) { debugTarget = target.GetTag(); } else { debugTarget = "None"; };
+					if(goal) { debugGoal = goal.GetTag(); } else { debugGoal = "None"; };
+
+					Console.printf("Current Goal is "..currentGoal..", timer is "..goalTimer..", target is "..debugTarget..", goal is "..debugGoal);
+				}
+				//if(goal){Console.printf("Pathnode is "..goal.GetTag());}else{console.printf("No goal???");}
 				return ResolveState("SeeConfirm");
 			}
 		SeeConfirm:
@@ -382,8 +391,9 @@ class FlickerMonster : LightSensitive
 					}
 
 				}
-				target = newTarget;
+				//target = newTarget;
 				goal = newTarget;
+				//console.printf("Set goal to "..goal.GetTag());
 			}
 			Goto Idle;
 
